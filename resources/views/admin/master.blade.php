@@ -8,6 +8,7 @@
     <title>وبسایت رسمی رقیه شهریاری</title>
     <link rel="stylesheet" href="/css/admin.css">
     @yield('style')
+    @yield('script')
 </head>
 
 <body>

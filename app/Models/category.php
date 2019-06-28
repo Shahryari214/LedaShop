@@ -42,4 +42,9 @@ class category extends Model
             ]
         ];
     }
+
+    public function path()
+    {
+        return "/category/$this->slug";
+    }
 }

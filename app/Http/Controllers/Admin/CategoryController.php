@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Models\category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Helpers\Select2;
+
 
 class CategoryController extends AdminController
 {
@@ -67,9 +69,10 @@ class CategoryController extends AdminController
     public function edit(category $category)
     {
         $this->authorize('update-category'); 
-        $parent_id= $category->parent_id;
         $nodes = Category::get()->toTree();
-        return view('admin.category.edit',compact('category','nodes','parent_id'));
+        $Select2 = new Select2();
+        $renderSelect=$Select2->renderNested($nodes);
+        return view('admin.category.edit',compact('category','renderSelect'));
     }
 
     /**

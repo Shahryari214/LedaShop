@@ -1,5 +1,16 @@
 @extends('Admin.master')
-
+@section('script')
+    <script>
+        $(function() {
+            var i = 0;
+            $(".nestedSelect option").each(function () {
+                i++;
+                var content = $(this).html();
+                $(this).html("&nbsp&nbsp".repeat(i) + "-".repeat(i) + content );
+            });
+        });
+    </script>
+@endsection
 @section('content')
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <div class="page-header head-section">
@@ -24,20 +35,8 @@
                             <label for="title" class="col-sm-2 col-form-label">دسته والد</label>
                             <div class="col-sm-10">
                                 <select name="parent" id="parent" class="form-control custom-select custom-select-sm">
-                                    <option value="" selected>هیچ کدام</option>
-                                    @php
-                                    $traverse = function ($categories,$parent_id, $prefix = '-',$level=1) use (&$traverse) {
-                                    foreach ($categories as $category) {
-                                        echo   '<option value="'.$category->id.'"';
-                                        if($category->id==$parent_id){
-                                            echo  'selected';
-                                        }
-                                        echo '
-                                        class="level'.$level.'">'.$prefix.' '.$category->title.'</option>';
-                                        $traverse($category->children,$parent_id,$prefix.'-',$level+1); 
-                                    }    
-                                };
-                                $traverse($nodes,$parent_id);
+                                @php
+                                    echo $renderSelect;
                                 @endphp   
                                 </select>
                             </div>
